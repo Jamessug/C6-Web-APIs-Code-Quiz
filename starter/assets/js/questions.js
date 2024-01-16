@@ -54,3 +54,13 @@
     }
   ];
   
+
+// Function to get a specific question by index
+function getQuestion(index) {
+  return questions[index];
+}
+
+// Function to get the total number of questions
+function getTotalQuestions() {
+  return questions.length;
+}
