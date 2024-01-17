@@ -1,7 +1,7 @@
  // questions
  // Create an array of objects, where each object represents a question with its options and correct answer.
 
- const questions = [
+ const questions = [ 
     {
       question: "What does HTML stand for?",
       options: ["A) HyperText Markup Language", "B) High-level Text Machine Language", "C) Hyperlink and Text Markup Language", "D) Hyper Transfer Markup Language"],
@@ -54,13 +54,16 @@
     }
   ];
   
-
 // Function to get a specific question by index
 function getQuestion(index) {
-  return questions[index];
+  const question = questions[index];
+  console.log("Getting question:", question);
+  return question;
 }
 
 // Function to get the total number of questions
 function getTotalQuestions() {
-  return questions.length;
+  const totalQuestions = questions.length;
+  console.log("Total questions:", totalQuestions);
+  return totalQuestions;
 }

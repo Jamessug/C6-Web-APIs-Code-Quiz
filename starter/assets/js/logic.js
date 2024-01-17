@@ -16,6 +16,16 @@ document.getElementById("start").addEventListener("click", startQuiz);
 
 // Start Quiz Function
 function startQuiz() {
+  console.log("Start Quiz function called");
+
+  // Ensure quizContainer is correctly selected
+  const quizContainer = document.getElementById("quiz-container");
+  console.log("quizContainer:", quizContainer);
+  if (!quizContainer) {
+    console.error("Error: quiz-container element not found.");
+    return;
+  }
+
   if (typeof timeLeft === 'undefined') {
     // Initialise timeLeft only if not defined
     timeLeft = 60; // Set the initial time for the quiz
@@ -26,6 +36,7 @@ function startQuiz() {
     if (timeLeft > 0) {
       timeLeft--;
       // Optionally, update a timer display in the UI
+      document.getElementById("time").textContent = timeLeft; // Add this line to update timer display
     } else {
       clearInterval(timer);
       endQuiz();
@@ -37,6 +48,7 @@ function startQuiz() {
 
   // Add event listeners for user interactions
   quizContainer.addEventListener("click", function(event) {
+    console.log("Button clicked:", event.target);
     if (event.target.tagName === "BUTTON") {
       checkAnswer(parseInt(event.target.dataset.index));
     }
@@ -49,6 +61,7 @@ function displayQuestion(index) {
   
   // Ensure quizContainer is correctly selected
   const quizContainer = document.getElementById("quiz-container");
+  console.log("Displaying question. quizContainer:", quizContainer);
   if (!quizContainer) {
     console.error("Error: quiz-container element not found.");
     return;
@@ -62,7 +75,6 @@ function displayQuestion(index) {
   `;
 }
 
-
 // Check Answer Function
 function checkAnswer(answer) {
   const currentQuestion = getQuestion(currentQuestionIndex);
@@ -71,7 +83,8 @@ function checkAnswer(answer) {
     score++;
   } else {
     // Subtract time from the timer (e.g., reduce timer by 10 seconds)
-    timeLeft -= 10; 
+    timeLeft -= 10;
+    document.getElementById("time").textContent = timeLeft; // Update timer display
   }
 
   currentQuestionIndex++;
@@ -85,6 +98,7 @@ function checkAnswer(answer) {
 
 // End Quiz Function
 function endQuiz() {
+  console.log("End Quiz function called");
   alert(`Final Score: ${score}`);
   // Retrieve and display high scores from scores.js
   displayHighScores();
