@@ -4,13 +4,25 @@
 let currentQuestionIndex = 0;
 let score = 0;
 let timer;
+let timeLeft; // Add this line to declare timeLeft
+
 const quizContainer = document.getElementById("quiz-container");
 
 // Start Quiz Function
 function startQuiz() {
-  // Initialise timer
+  if (typeof timeLeft === 'undefined') {
+    // Initialise timeLeft only if not defined
+    timeLeft = 60; // Set the initial time for the quiz
+  }
+
   timer = setInterval(function() {
     // Update timer logic (subtract time, check if time is up)
+    if (timeLeft > 0) {
+      timeLeft--;
+    } else {
+      clearInterval(timer);
+      endQuiz();
+    }
   }, 1000);
 
   // Display the first question
@@ -40,35 +52,24 @@ function checkAnswer(answer) {
   const currentQuestion = getQuestion(currentQuestionIndex);
 
   if (answer === currentQuestion.correctAnswer) {
-    // Update score
     score++;
   } else {
     // Subtract time from the timer (e.g., reduce timer by 10 seconds)
-    // Update timer logic
+    timeLeft -= 10; // Adjust based on your penalty logic
   }
 
-  // Move to the next question
   currentQuestionIndex++;
 
   if (currentQuestionIndex < getTotalQuestions()) {
-    // Display the next question
     displayQuestion(currentQuestionIndex);
   } else {
-    // End the quiz
     endQuiz();
   }
 }
 
 // End Quiz Function
 function endQuiz() {
-  // Stop the timer
-  clearInterval(timer);
-
-  // Display the final score
   alert(`Final Score: ${score}`);
-}
-
-// Function to retrieve high scores (assume it's in scores.js)
-function getHighScores() {
-  // Logic to retrieve high scores
+  // Retrieve and display high scores from scores.js
+  displayHighScores();
 }
