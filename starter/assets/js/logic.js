@@ -1,5 +1,8 @@
 // logic
 
+// In logic.js
+console.log("Logic.js loaded");
+
 // Initialisation
 let currentQuestionIndex = 0;
 let score = 0;
@@ -7,6 +10,9 @@ let timer;
 let timeLeft; // Add this line to declare timeLeft
 
 const quizContainer = document.getElementById("quiz-container");
+
+// Add event listener for the "Start Quiz" button
+document.getElementById("start").addEventListener("click", startQuiz);
 
 // Start Quiz Function
 function startQuiz() {
@@ -29,9 +35,6 @@ function startQuiz() {
   // Display the first question
   displayQuestion(currentQuestionIndex);
 
-  // Add event listener for the "Start Quiz" button
-  document.getElementById("start").addEventListener("click", startQuiz);
-
   // Add event listeners for user interactions
   quizContainer.addEventListener("click", function(event) {
     if (event.target.tagName === "BUTTON") {
@@ -43,6 +46,14 @@ function startQuiz() {
 // Display Question Function
 function displayQuestion(index) {
   const currentQuestion = getQuestion(index);
+  
+  // Ensure quizContainer is correctly selected
+  const quizContainer = document.getElementById("quiz-container");
+  if (!quizContainer) {
+    console.error("Error: quiz-container element not found.");
+    return;
+  }
+
   quizContainer.innerHTML = `
     <h2>${currentQuestion.question}</h2>
     <div id="choices">
@@ -50,6 +61,7 @@ function displayQuestion(index) {
     </div>
   `;
 }
+
 
 // Check Answer Function
 function checkAnswer(answer) {
