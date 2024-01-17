@@ -19,6 +19,7 @@ function startQuiz() {
     // Update timer logic (subtract time, check if time is up)
     if (timeLeft > 0) {
       timeLeft--;
+      // Optionally, update a timer display in the UI
     } else {
       clearInterval(timer);
       endQuiz();
@@ -27,6 +28,9 @@ function startQuiz() {
 
   // Display the first question
   displayQuestion(currentQuestionIndex);
+
+  // Add event listener for the "Start Quiz" button
+  document.getElementById("start").addEventListener("click", startQuiz);
 
   // Add event listeners for user interactions
   quizContainer.addEventListener("click", function(event) {
@@ -55,7 +59,7 @@ function checkAnswer(answer) {
     score++;
   } else {
     // Subtract time from the timer (e.g., reduce timer by 10 seconds)
-    timeLeft -= 10; // Adjust based on your penalty logic
+    timeLeft -= 10; 
   }
 
   currentQuestionIndex++;
